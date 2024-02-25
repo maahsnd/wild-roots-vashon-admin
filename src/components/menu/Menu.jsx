@@ -77,13 +77,17 @@ function Menu() {
 
   return (
     <div className={styles.menuContainer}>
-      <button onClick={writeToDB}>Submit Menu</button>
-      <button onClick={resetMenu}>Clear Menu</button>
+      <div className={styles.buttonContainer}>
+        <button onClick={writeToDB}>Submit Menu</button>
+        <button onClick={resetMenu}>Clear Menu</button>
+      </div>
+
       {sections &&
         sections.map((section, sectionIndex) => (
           <div className={styles.sectionContainer} key={sectionIndex}>
             <label htmlFor="">Section Title</label>
             <textarea
+              className={styles.sectionTextArea}
               value={section.sectionTitle}
               onChange={(e) => handleChange(e, sectionIndex, 'section')}
               name="sectionTitle"
@@ -92,43 +96,52 @@ function Menu() {
             ></textarea>
             <label htmlFor="">Section Detail</label>
             <textarea
+              className={styles.sectionTextArea}
               value={section.sectionDetail}
               onChange={(e) => handleChange(e, sectionIndex, 'section')}
               name="sectionDetail"
               cols="30"
               rows="10"
             ></textarea>
-            {items &&
-              items.map((item, itemIndex) => {
-                if (item.itemSection === section.sectionTitle) {
-                  return (
-                    <div className={styles.itemContainer} key={itemIndex}>
-                      <label htmlFor="">Item Title</label>
-                      <textarea
-                        value={item.itemTitle}
-                        onChange={(e) => handleChange(e, itemIndex, 'item')}
-                        name="itemTitle"
-                        cols="30"
-                        rows="10"
-                      ></textarea>
-                      <label htmlFor="">Item Description</label>
-                      <textarea
-                        value={item.itemDescription}
-                        onChange={(e) => handleChange(e, itemIndex, 'item')}
-                        name="itemDescription"
-                        cols="30"
-                        rows="10"
-                      ></textarea>
-                    </div>
-                  );
-                }
-              })}
-            <button onClick={() => addMenuItem(section.sectionTitle)}>
-              Add item
-            </button>
+            <label htmlFor="">Section Items:</label>
+            <div className={styles.itemGallery}>
+              {items &&
+                items.map((item, itemIndex) => {
+                  if (item.itemSection === section.sectionTitle) {
+                    return (
+                      <div className={styles.itemContainer} key={itemIndex}>
+                        <label htmlFor="">Item Title</label>
+                        <textarea
+                          value={item.itemTitle}
+                          onChange={(e) => handleChange(e, itemIndex, 'item')}
+                          name="itemTitle"
+                          cols="30"
+                          rows="10"
+                        ></textarea>
+                        <label htmlFor="">Item Description</label>
+                        <textarea
+                          value={item.itemDescription}
+                          onChange={(e) => handleChange(e, itemIndex, 'item')}
+                          name="itemDescription"
+                          cols="30"
+                          rows="10"
+                        ></textarea>
+                      </div>
+                    );
+                  }
+                })}
+              <button
+                className={styles.addItemBtn}
+                onClick={() => addMenuItem(section.sectionTitle)}
+              >
+                Add item
+              </button>
+            </div>
           </div>
         ))}
-      <button onClick={addMenuSection}>Add section</button>
+      <button className={styles.addSectionBtn} onClick={addMenuSection}>
+        Add section
+      </button>
     </div>
   );
 }

@@ -1,8 +1,58 @@
 .sectionContainer,
-.itemContainer {
+.itemContainer,
+.menuContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .menuContainer {
-  align-items: flex-start;
+  margin-top: 2%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.buttonContainer > button {
+  background-color: rgba(128, 128, 128, 0.505);
+  margin: 10px;
+}
+
+.sectionContainer {
+  margin: 10px 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 1015px;
+  padding: 40px;
+}
+
+.sectionTextArea {
+  height: 20px;
+  width: 1000px;
+  font-size: large;
+  padding: 5px;
+  text-align: center;
+}
+
+.itemGallery {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1010px;
+  justify-content: center;
+  align-items: center;
+  border: black 1px solid;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.itemContainer {
+  background-color: lightgray;
+  padding: 5px 10px 10px 10px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.addItemBtn,
+.addSectionBtn {
+  height: fit-content;
+  background-color: rgba(0, 128, 0, 0.47);
+  margin: 10px;
 }

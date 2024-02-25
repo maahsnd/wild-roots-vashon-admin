@@ -1,0 +1,24 @@
+.navBar {
+  display: flex;
+  background-color: rgba(128, 128, 128, 0.441);
+  justify-content: center;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.link {
+  padding: 5px 20px;
+  border: solid 1px black;
+  border-radius: 5px;
+  margin: 10px;
+  background-color: white;
+}
+.link:hover {
+  background-color: yellow;
+}
+
+.title {
+  margin-right: auto;
+  margin-left: 15px;
+  font-size: x-large;
+}
