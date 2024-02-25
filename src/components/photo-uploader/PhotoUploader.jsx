@@ -31,7 +31,7 @@ function PhotoUploader() {
           const id = fileRef.name.split('.')[0]; // Extract the filename without extension as ID
 
           // Listen for changes to the caption in the Realtime Database
-          const captionRef = ref(db, `captions/${id}`);
+          const captionRef = ref(db, `photo-captions/${id}`);
           onValue(captionRef, (snapshot) => {
             const caption = snapshot.val() || ''; // Set caption to an empty string if it doesn't exist
             setCaptions((prevCaptions) => ({ ...prevCaptions, [id]: caption }));
@@ -76,7 +76,7 @@ function PhotoUploader() {
 
     try {
       // Update captions in the Realtime Database
-      await set(ref(db, `captions/${imageId}`), caption);
+      await set(ref(db, `photo-captions/${imageId}`), caption);
       // Update captions state
       setCaptions((prevCaptions) => ({ ...prevCaptions, [imageId]: caption }));
     } catch (error) {
