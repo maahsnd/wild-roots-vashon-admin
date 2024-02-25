@@ -1,0 +1,8 @@
+.sectionContainer,
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+}
+.menuContainer {
+  align-items: flex-start;
+}
