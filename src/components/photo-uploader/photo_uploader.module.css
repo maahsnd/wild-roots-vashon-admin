@@ -1,0 +1,5 @@
+.selected-image,
+.image-container img {
+  max-width: 400px;
+  height: auto;
+}
