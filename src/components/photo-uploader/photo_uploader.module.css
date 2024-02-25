@@ -28,7 +28,7 @@
 }
 
 .selected-image,
-.image-container img {
+.imageContainer img {
   max-width: 400px;
   width: auto;
   max-height: 600px;
@@ -36,6 +36,7 @@
 }
 
 .imageContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
   height: 650px;
@@ -44,6 +45,7 @@
   border: black 1px solid;
   border-radius: 5px;
   margin: 10px;
+  position: relative; /* Add position relative for absolute positioning */
 }
 
 .captionInput {
@@ -52,4 +54,19 @@
 
 .photoGallery {
   display: flex;
+}
+
+.removeButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  width: 150px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border: black 1px solid;
+}
+
+.removeButton:hover {
+  color: black;
 }

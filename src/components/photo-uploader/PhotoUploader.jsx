@@ -5,9 +5,10 @@ import {
   ref as storageRef,
   uploadBytesResumable,
   getDownloadURL,
-  listAll
+  listAll,
+  deleteObject // Import deleteObject from Firebase storage
 } from 'firebase/storage';
-import { ref, set, onValue, off } from 'firebase/database';
+import { ref, set, onValue, off, remove } from 'firebase/database';
 
 function PhotoUploader({ folderName }) {
   const [photos, setPhotos] = useState([]);
@@ -69,6 +70,28 @@ function PhotoUploader({ folderName }) {
     }
   };
 
+  const handleRemove = async (id) => {
+    try {
+      // Remove photo from storage
+      const photoRef = storageRef(storage, `${folderName}/${id}`);
+      await deleteObject(photoRef);
+
+      // Remove caption from database
+      await remove(ref(db, `photo-captions/${id}`));
+
+      // Update photos state
+      setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo.id !== id));
+      // Update captions state
+      setCaptions((prevCaptions) => {
+        const updatedCaptions = { ...prevCaptions };
+        delete updatedCaptions[id];
+        return updatedCaptions;
+      });
+    } catch (error) {
+      console.error('Remove error:', error);
+    }
+  };
+
   const handleCaptionChange = async (imageId, e) => {
     const caption = e.target.value;
 
@@ -98,7 +121,6 @@ function PhotoUploader({ folderName }) {
     <div className={styles.container}>
       <h3>Photo Uploader</h3>
       <div className={styles.uploader}>
-        {' '}
         <input type="file" onChange={handleChange} />
         <button onClick={handleUpload}>Upload</button>
         {imageUrl && (
@@ -107,7 +129,7 @@ function PhotoUploader({ folderName }) {
             <img
               src={imageUrl}
               alt="Selected"
-              className={styles['selected-image']}
+              className={styles.selectedImage}
             />
           </div>
         )}
@@ -117,6 +139,12 @@ function PhotoUploader({ folderName }) {
       <div className={styles.photoGallery}>
         {photos.map((photo) => (
           <div key={photo.id} className={styles.imageContainer}>
+            <button
+              className={styles.removeButton}
+              onClick={() => handleRemove(photo.id)}
+            >
+              Remove Photo
+            </button>
             <img src={photo.url} alt={`Uploaded ${photo.id}`} />
             <input
               type="text"
