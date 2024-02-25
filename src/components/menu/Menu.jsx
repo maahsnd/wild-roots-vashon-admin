@@ -1,22 +1,27 @@
 import styles from './menu.module.css';
 import { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
-import { set, ref, onValue, remove, update } from 'firebase/database';
+import { set, ref, onValue, off } from 'firebase/database';
 
 function Menu() {
   const [sections, setSections] = useState(null);
   const [items, setItems] = useState(null);
 
   useEffect(() => {
-    onValue(ref(db), (snapshot) => {
-      const data = snapshot.val();
-      if (data.menu.sections != null) {
-        setSections(data.menu.sections);
-      }
-      if (data.menu.items != null) {
-        setItems(data.menu.items);
-      }
-    });
+    const menuRef = ref(db, 'menu');
+
+    const fetchData = () => {
+      onValue(menuRef, (snapshot) => {
+        const menuData = snapshot.val();
+        setSections(menuData.sections);
+        setItems(menuData.items);
+      });
+    };
+
+    fetchData();
+    return () => {
+      off(menuRef, 'value');
+    };
   }, []);
 
   const handleChange = (e, index, type) => {
