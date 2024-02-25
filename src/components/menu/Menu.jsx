@@ -85,24 +85,30 @@ function Menu() {
       {sections &&
         sections.map((section, sectionIndex) => (
           <div className={styles.sectionContainer} key={sectionIndex}>
-            <label htmlFor="">Section Title</label>
-            <textarea
-              className={styles.sectionTextArea}
-              value={section.sectionTitle}
-              onChange={(e) => handleChange(e, sectionIndex, 'section')}
-              name="sectionTitle"
-              cols="30"
-              rows="10"
-            ></textarea>
-            <label htmlFor="">Section Detail</label>
-            <textarea
-              className={styles.sectionTextArea}
-              value={section.sectionDetail}
-              onChange={(e) => handleChange(e, sectionIndex, 'section')}
-              name="sectionDetail"
-              cols="30"
-              rows="10"
-            ></textarea>
+            <div className={styles.sectionInputContainer}>
+              <label htmlFor="">Section Title: </label>
+              <textarea
+                className={styles.sectionTextArea}
+                value={section.sectionTitle}
+                onChange={(e) => handleChange(e, sectionIndex, 'section')}
+                name="sectionTitle"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+
+            <div className={styles.sectionInputContainer}>
+              <label htmlFor="">Section Detail:</label>
+              <textarea
+                className={styles.sectionTextArea}
+                value={section.sectionDetail}
+                onChange={(e) => handleChange(e, sectionIndex, 'section')}
+                name="sectionDetail"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+
             <label htmlFor="">Section Items:</label>
             <div className={styles.itemGallery}>
               {items &&

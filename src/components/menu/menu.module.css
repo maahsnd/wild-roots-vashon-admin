@@ -7,8 +7,6 @@
 }
 .menuContainer {
   margin-top: 2%;
-  border: 1px solid black;
-  border-radius: 5px;
 }
 
 .buttonContainer > button {
@@ -24,12 +22,24 @@
   padding: 40px;
 }
 
+.sectionInputContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin: 10px;
+}
+
+.sectionInputContainer > label {
+  margin-right: 5px;
+}
+
 .sectionTextArea {
   height: 20px;
-  width: 1000px;
+  width: 800px;
   font-size: large;
   padding: 5px;
-  text-align: center;
+  text-align: start;
 }
 
 .itemGallery {
