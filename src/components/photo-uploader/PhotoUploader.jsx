@@ -9,13 +9,11 @@ import {
 } from 'firebase/storage';
 import { ref, set, onValue, off } from 'firebase/database';
 
-function PhotoUploader() {
+function PhotoUploader({ folderName }) {
   const [photos, setPhotos] = useState([]);
   const [captions, setCaptions] = useState({});
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
-  const folderName = 'menuPhotos';
 
   useEffect(() => {
     fetchData();
@@ -98,33 +96,38 @@ function PhotoUploader() {
 
   return (
     <div className={styles.container}>
-      <input type="file" onChange={handleChange} />
-      <button onClick={handleUpload}>Upload</button>
+      <h3>Photo Uploader</h3>
+      <div className={styles.uploader}>
+        {' '}
+        <input type="file" onChange={handleChange} />
+        <button onClick={handleUpload}>Upload</button>
+        {imageUrl && (
+          <div className={styles.imageContainer}>
+            <h3>Selected image</h3>
+            <img
+              src={imageUrl}
+              alt="Selected"
+              className={styles['selected-image']}
+            />
+          </div>
+        )}
+      </div>
 
-      <div>
+      <h3>Photos</h3>
+      <div className={styles.photoGallery}>
         {photos.map((photo) => (
-          <div key={photo.id} className={styles['image-container']}>
+          <div key={photo.id} className={styles.imageContainer}>
             <img src={photo.url} alt={`Uploaded ${photo.id}`} />
             <input
               type="text"
               value={captions[photo.id] || ''}
               onChange={(e) => handleCaptionChange(photo.id, e)}
-              className={styles['caption-input']}
+              className={styles.captionInput}
               placeholder="Add a caption"
             />
           </div>
         ))}
       </div>
-
-      {imageUrl && (
-        <div className={styles['image-container']}>
-          <img
-            src={imageUrl}
-            alt="Selected"
-            className={styles['selected-image']}
-          />
-        </div>
-      )}
     </div>
   );
 }

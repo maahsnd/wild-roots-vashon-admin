@@ -2,6 +2,7 @@ import styles from './menu.module.css';
 import { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
 import { set, ref, onValue, off } from 'firebase/database';
+import PhotoUploader from '../photo-uploader/PhotoUploader';
 
 function Menu() {
   const [sections, setSections] = useState(null);
@@ -77,6 +78,7 @@ function Menu() {
 
   return (
     <div className={styles.menuContainer}>
+      <h3>Menu Editor</h3>
       <div className={styles.buttonContainer}>
         <button onClick={writeToDB}>Submit Menu</button>
         <button onClick={resetMenu}>Clear Menu</button>
@@ -148,6 +150,7 @@ function Menu() {
       <button className={styles.addSectionBtn} onClick={addMenuSection}>
         Add section
       </button>
+      <PhotoUploader folderName="menuPhotos" />
     </div>
   );
 }

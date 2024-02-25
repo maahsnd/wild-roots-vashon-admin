@@ -1,5 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 40px 0;
+  width: 1100px;
+  border: 1px solid black;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.uploader {
+  display: flex;
+  align-items: center;
+  background-color: rgba(128, 128, 128, 0.466);
+  padding: 20px;
+  border-radius: 5px;
+  font-size: large;
+}
+
+.uploader > button {
+  background-color: rgba(0, 128, 0, 0.341);
+}
+
+.uploader > input {
+  font-size: 18px;
+  margin-right: 20px;
+  padding: 10px;
+}
+
 .selected-image,
 .image-container img {
   max-width: 400px;
+  width: auto;
+  max-height: 600px;
   height: auto;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  height: 650px;
+  width: 450px;
+  padding: 20px;
+  border: black 1px solid;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.captionInput {
+  margin: 5px;
+}
+
+.photoGallery {
+  display: flex;
 }
