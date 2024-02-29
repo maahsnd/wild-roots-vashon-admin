@@ -17,6 +17,7 @@
 }
 .link:hover {
   background-color: yellow;
+  color: black;
 }
 
 .signOut:hover {
