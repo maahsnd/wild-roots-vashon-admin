@@ -4,6 +4,7 @@ import { useAuth } from './components/AuthContext'; // Import useAuth hook
 import Home from './components/home/Home';
 import Menu from './components/menu/Menu';
 import Login from './components/login/Login';
+import Info from './components/info/Info';
 import { ProtectedLayout } from './components/ProtectedLayout';
 import { PublicLayout } from './components/PublicLayout';
 
@@ -25,6 +26,7 @@ export default function App() {
       >
         <Route index element={<Home />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/info" element={<Info />} />
       </Route>
     </Routes>
   );
