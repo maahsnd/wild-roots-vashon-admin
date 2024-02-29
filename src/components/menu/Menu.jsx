@@ -108,7 +108,9 @@ function Menu() {
               Remove This Section
             </button>
             <div className={styles.sectionInputContainer}>
-              <label htmlFor="">Section Title: </label>
+              <label htmlFor={`sectionTitle-${sectionIndex}`}>
+                Section Title:{' '}
+              </label>
               <textarea
                 className={styles.sectionTextArea}
                 value={section.sectionTitle}
@@ -116,11 +118,14 @@ function Menu() {
                 name="sectionTitle"
                 cols="30"
                 rows="10"
+                id={`sectionTitle-${sectionIndex}`}
               ></textarea>
             </div>
 
             <div className={styles.sectionInputContainer}>
-              <label htmlFor="">Section Detail:</label>
+              <label htmlFor={`sectionDetail-${sectionIndex}`}>
+                Section Detail:
+              </label>
               <textarea
                 className={styles.sectionTextArea}
                 value={section.sectionDetail}
@@ -128,31 +133,38 @@ function Menu() {
                 name="sectionDetail"
                 cols="30"
                 rows="10"
+                id={`sectionDetail-${sectionIndex}`}
               ></textarea>
             </div>
 
-            <label htmlFor="">Section Items:</label>
+            <label htmlFor={`itemTitle-${sectionIndex}`}>Section Items:</label>
             <div className={styles.itemGallery}>
               {items &&
                 items.map((item, itemIndex) => {
                   if (item.itemSection === section.sectionTitle) {
                     return (
                       <div className={styles.itemContainer} key={itemIndex}>
-                        <label htmlFor="">Item Title</label>
+                        <label htmlFor={`itemTitle-${sectionIndex}`}>
+                          Item Title
+                        </label>
                         <textarea
                           value={item.itemTitle}
                           onChange={(e) => handleChange(e, itemIndex, 'item')}
                           name="itemTitle"
                           cols="30"
                           rows="10"
+                          id={`itemTitle-${sectionIndex}`}
                         ></textarea>
-                        <label htmlFor="">Item Description</label>
+                        <label htmlFor={`itemDescription-${sectionIndex}`}>
+                          Item Description
+                        </label>
                         <textarea
                           value={item.itemDescription}
                           onChange={(e) => handleChange(e, itemIndex, 'item')}
                           name="itemDescription"
                           cols="30"
                           rows="10"
+                          id={`itemDescription-${sectionIndex}`}
                         ></textarea>
                         <button
                           className={styles.removeItemBtn}
