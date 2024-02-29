@@ -13,7 +13,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null); // State variable for error message
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
     try {
       const auth = getAuth();
       // Set persistence to session
@@ -32,21 +33,24 @@ const Login = () => {
   return (
     <div>
       <h2>Sign In</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleSignIn}>Sign In</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}{' '}
-      {/* Display error message if exists */}
+      <form onSubmit={handleSignIn}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="username"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
+        />
+        <button type="submit">Sign In</button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };
