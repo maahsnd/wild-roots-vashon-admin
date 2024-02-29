@@ -7,6 +7,7 @@ import PhotoUploader from '../photo-uploader/PhotoUploader';
 function Menu() {
   const [sections, setSections] = useState(null);
   const [items, setItems] = useState(null);
+  const [msg, setMsg] = useState(null);
 
   useEffect(() => {
     const menuRef = ref(db, 'menu');
@@ -54,6 +55,8 @@ function Menu() {
       sections: sections,
       items: items
     });
+    setMsg('Updated!');
+    setTimeout(() => setMsg(null), 2000);
   };
 
   const resetMenu = () => {
@@ -89,6 +92,7 @@ function Menu() {
   return (
     <div className={styles.menuContainer}>
       <h3>Menu Editor</h3>
+      <p className={styles.msg}>{msg}</p>
       <div className={styles.buttonContainer}>
         <button onClick={writeToDB}>Submit Menu</button>
         <button onClick={resetMenu}>Clear Menu</button>

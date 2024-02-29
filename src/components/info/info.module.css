@@ -5,6 +5,13 @@
   border: 1px solid black;
 }
 
+.msg {
+  color: green;
+  margin: 0 0 5px 0;
+  height: 10px;
+  font-size: large;
+}
+
 .submitButton:hover {
   background-color: rgba(0, 128, 0, 0.691);
 }

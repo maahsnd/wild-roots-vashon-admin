@@ -5,6 +5,7 @@ import styles from './info.module.css';
 
 function Info() {
   const [content, setContent] = useState(null);
+  const [msg, setMsg] = useState(null);
 
   useEffect(() => {
     const infoRef = ref(db, 'general-info');
@@ -32,6 +33,8 @@ function Info() {
     set(ref(db, 'general-info'), {
       content: content
     });
+    setMsg('Updated!');
+    setTimeout(() => setMsg(null), 2000);
   };
 
   return (
@@ -39,6 +42,7 @@ function Info() {
       <button className={styles.submitButton} onClick={writeToDB}>
         Submit changes
       </button>
+      <p className={styles.msg}>{msg}</p>
       {content &&
         content.map((section, index) => (
           <div className={styles.contentSection} key={section.sectionTitle}>

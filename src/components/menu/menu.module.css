@@ -9,6 +9,13 @@
   margin-top: 2%;
 }
 
+.msg {
+  color: green;
+  margin: 0 0 5px 0;
+  height: 20px;
+  font-size: large;
+}
+
 .buttonContainer > button {
   background-color: rgba(128, 128, 128, 0.505);
   margin: 10px;
