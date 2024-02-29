@@ -20,6 +20,19 @@
   border-radius: 5px;
   width: 1015px;
   padding: 40px;
+  display: flex;
+}
+
+.removeSectionBtn,
+.removeItemBtn {
+  margin: 10px;
+  padding: 5px;
+  background-color: rgba(255, 0, 0, 0.51);
+}
+
+.removeItemBtn:hover,
+.removeSectionBtn:hover {
+  background-color: red;
 }
 
 .sectionInputContainer {

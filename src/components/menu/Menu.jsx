@@ -30,11 +30,11 @@ function Menu() {
     const updatedItems = [...items];
 
     if (type === 'section') {
-      if (e.target.name == 'sectionTitle') {
+      if (e.target.name === 'sectionTitle') {
         const prevSectionTitle = updatedSections[index].sectionTitle;
-        //update itemSections for items, so that section retains its items
+        // Update itemSections for items, so that section retains its items
         updatedItems.forEach((item) => {
-          if (item.itemSection == prevSectionTitle) {
+          if (item.itemSection === prevSectionTitle) {
             item.itemSection = e.target.value;
           }
         });
@@ -59,9 +59,7 @@ function Menu() {
   const resetMenu = () => {
     set(ref(db, 'menu'), {
       sections: [{ sectionTitle: '', sectionDetail: '' }],
-      items: [
-        { itemTitle: '', itemDescription: '', itemSection: itemSectionTitle }
-      ]
+      items: [{ itemTitle: '', itemDescription: '', itemSection: '' }]
     });
   };
 
@@ -76,6 +74,18 @@ function Menu() {
     setSections([...sections, { sectionTitle: '', sectionDetail: '' }]);
   };
 
+  const removeSection = (index) => {
+    const updatedSections = [...sections];
+    updatedSections.splice(index, 1);
+    setSections(updatedSections);
+  };
+
+  const removeItem = (index) => {
+    const updatedItems = [...items];
+    updatedItems.splice(index, 1);
+    setItems(updatedItems);
+  };
+
   return (
     <div className={styles.menuContainer}>
       <h3>Menu Editor</h3>
@@ -87,6 +97,12 @@ function Menu() {
       {sections &&
         sections.map((section, sectionIndex) => (
           <div className={styles.sectionContainer} key={sectionIndex}>
+            <button
+              className={styles.removeSectionBtn}
+              onClick={() => removeSection(sectionIndex)}
+            >
+              Remove This Section
+            </button>
             <div className={styles.sectionInputContainer}>
               <label htmlFor="">Section Title: </label>
               <textarea
@@ -134,6 +150,12 @@ function Menu() {
                           cols="30"
                           rows="10"
                         ></textarea>
+                        <button
+                          className={styles.removeItemBtn}
+                          onClick={() => removeItem(itemIndex)}
+                        >
+                          Remove This Item
+                        </button>
                       </div>
                     );
                   }
@@ -142,7 +164,7 @@ function Menu() {
                 className={styles.addItemBtn}
                 onClick={() => addMenuItem(section.sectionTitle)}
               >
-                Add item
+                Add item to section
               </button>
             </div>
           </div>
