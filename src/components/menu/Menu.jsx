@@ -168,7 +168,7 @@ function Menu() {
                 className={styles.addItemBtn}
                 onClick={() => addMenuItem(section.sectionTitle)}
               >
-                Add item to section
+                Add item to {section.sectionTitle} section
               </button>
             </div>
           </div>
@@ -176,7 +176,6 @@ function Menu() {
       <button className={styles.addSectionBtn} onClick={addMenuSection}>
         Add section
       </button>
-      <PhotoUploader folderName="menuPhotos" />
     </div>
   );
 }

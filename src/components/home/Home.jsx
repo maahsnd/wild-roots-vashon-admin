@@ -9,6 +9,10 @@ export default function Home() {
       <Link className={styles.linkBtn} to="/menu">
         Edit Menu
       </Link>
+      <p>To add photos to the menu, click the add menu photos button.</p>
+      <Link className={styles.linkBtn} to="/menu-photos">
+        Add Menu Photos
+      </Link>
       <p>To edit other areas of the site, click edit general info</p>
       <Link className={styles.linkBtn} to="/info">
         Edit General Info
