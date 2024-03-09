@@ -1,0 +1,22 @@
+
+.pageSelectButtons {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pageBtn {
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid skyblue;
+    color: black;
+    height: min-content;
+    margin: 10px
+  }
+  
+  .pageBtn:hover {
+    color: black;
+    background-color: yellow;
+  }

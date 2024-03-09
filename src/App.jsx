@@ -6,6 +6,7 @@ import Menu from './components/menu/Menu';
 import Login from './components/login/Login';
 import Info from './components/info/Info';
 import PhotoUploader from './components/photo-uploader/PhotoUploader';
+import GeneralPhotos from './components/general-photos/GeneralPhotos';
 import { ProtectedLayout } from './components/ProtectedLayout';
 import { PublicLayout } from './components/PublicLayout';
 
@@ -32,6 +33,7 @@ export default function App() {
           element={<PhotoUploader folderName="menuPhotos" />}
         />
         <Route path="/info" element={<Info />} />
+        <Route path="/general-photos" element={<GeneralPhotos/>}/>
       </Route>
     </Routes>
   );
