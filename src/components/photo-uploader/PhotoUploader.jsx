@@ -12,7 +12,6 @@ import { ref, set, onValue, off, remove } from 'firebase/database';
 
 function PhotoUploader({ folderName }) {
   const [photos, setPhotos] = useState([]);
-  const [captions, setCaptions] = useState({});
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -28,13 +27,6 @@ function PhotoUploader({ folderName }) {
         files.items.map(async (fileRef) => {
           const url = await getDownloadURL(fileRef);
           const id = fileRef.name.split('.')[0]; // Extract the filename without extension as ID
-
-          // Listen for changes to the caption in the Realtime Database
-          const captionRef = ref(db, `photo-captions/${id}`);
-          onValue(captionRef, (snapshot) => {
-            const caption = snapshot.val() || ''; // Set caption to an empty string if it doesn't exist
-            setCaptions((prevCaptions) => ({ ...prevCaptions, [id]: caption }));
-          });
 
           return { url, id };
         })
@@ -76,32 +68,11 @@ function PhotoUploader({ folderName }) {
       const photoRef = storageRef(storage, `${folderName}/${id}`);
       await deleteObject(photoRef);
 
-      // Remove caption from database
-      await remove(ref(db, `photo-captions/${id}`));
-
       // Update photos state
       setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo.id !== id));
-      // Update captions state
-      setCaptions((prevCaptions) => {
-        const updatedCaptions = { ...prevCaptions };
-        delete updatedCaptions[id];
-        return updatedCaptions;
-      });
+ 
     } catch (error) {
       console.error('Remove error:', error);
-    }
-  };
-
-  const handleCaptionChange = async (imageId, e) => {
-    const caption = e.target.value;
-
-    try {
-      // Update captions in the Realtime Database
-      await set(ref(db, `photo-captions/${imageId}`), caption);
-      // Update captions state
-      setCaptions((prevCaptions) => ({ ...prevCaptions, [imageId]: caption }));
-    } catch (error) {
-      console.error('Update caption error:', error);
     }
   };
 
@@ -146,13 +117,6 @@ function PhotoUploader({ folderName }) {
               Remove Photo
             </button>
             <img src={photo.url} alt={`Uploaded ${photo.id}`} />
-            <input
-              type="text"
-              value={captions[photo.id] || ''}
-              onChange={(e) => handleCaptionChange(photo.id, e)}
-              className={styles.captionInput}
-              placeholder="Add a caption"
-            />
           </div>
         ))}
       </div>
