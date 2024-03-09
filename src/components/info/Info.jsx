@@ -6,6 +6,8 @@ import styles from './info.module.css';
 function Info() {
   const [content, setContent] = useState(null);
   const [msg, setMsg] = useState(null);
+  const [selectedPage, setSelectedPage] = useState(null);
+  const [pageName, setPageName] = useState('')
 
   useEffect(() => {
     const infoRef = ref(db, 'general-info');
@@ -13,7 +15,7 @@ function Info() {
     const fetchData = () => {
       onValue(infoRef, (snapshot) => {
         const data = snapshot.val();
-        setContent(data.content);
+        setContent(data);
       });
     };
 
@@ -24,41 +26,62 @@ function Info() {
   }, []);
 
   const handleChange = (e, index) => {
-    const updatedContent = [...content];
-    updatedContent[index].sectionContent = e.target.value;
-    setContent(updatedContent);
+    const updatedContent = [...selectedPage];
+    updatedContent[index].description = e.target.value;
+    setSelectedPage(updatedContent);
   };
 
   const writeToDB = () => {
+    const update = {...content};
+    update[pageName] = selectedPage
     set(ref(db, 'general-info'), {
-      content: content
+      about: update.about,
+      farm: update.farm,
+      home: update.home,
+      menuBlurb: update.menuBlurb
+
     });
     setMsg('Updated!');
     setTimeout(() => setMsg(null), 2000);
   };
 
+  const handlePageSelect = (page) => {
+    setSelectedPage(content[page]);
+    setPageName(page)
+  }
+
   return (
     <div className={styles.container}>
-      <button className={styles.submitButton} onClick={writeToDB}>
-        Submit changes
-      </button>
+      <div className={styles.pageSelectButtons}>
+        <h3>Select page to edit: </h3>
+      <button onClick={()=> handlePageSelect('about')} className={styles.pageBtn}>About</button>
+      <button onClick={()=> handlePageSelect('farm')} className={styles.pageBtn}>Farm</button>
+      <button onClick={()=> handlePageSelect('home')} className={styles.pageBtn}>Home</button>
+      <button onClick={()=> handlePageSelect('menuBlurb')} className={styles.pageBtn}>Menu</button>
+
+      </div>
       <p className={styles.msg}>{msg}</p>
-      {content &&
-        content.map((section, index) => (
-          <div className={styles.contentSection} key={section.sectionTitle}>
+      {selectedPage && <> 
+      {selectedPage.map((section, index) => (
+          <div className={styles.contentSection} key={section.title}>
             <h3 className={styles.contentSectionTitle}>
-              {section.sectionTitle}
+              {section.title}
             </h3>
             <textarea
-              name={section.sectionTitle}
-              id={section.sectionTitle}
+              name={section.title}
+              id={section.title}
               cols="30"
               rows="10"
-              value={section.sectionContent}
+              value={section.description}
               onChange={(e) => handleChange(e, index)}
             ></textarea>
           </div>
         ))}
+         <button className={styles.submitButton} onClick={writeToDB}>
+        Submit changes
+      </button></>
+   }
+  
     </div>
   );
 }
