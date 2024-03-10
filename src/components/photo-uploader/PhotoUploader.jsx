@@ -16,26 +16,26 @@ function PhotoUploader({ folderName }) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const folderRef = storageRef(storage, folderName);
+        const files = await listAll(folderRef);
+        const downloadURLs = await Promise.all(
+          files.items.map(async (fileRef) => {
+            const url = await getDownloadURL(fileRef);
+            const id = fileRef.name.split('.')[0]; // Extract the filename without extension as ID
+
+            return { url, id };
+          })
+        );
+        setPhotos(downloadURLs);
+      } catch (error) {
+        console.error('Fetch data error:', error);
+      }
+    };
+
     fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const folderRef = storageRef(storage, folderName);
-      const files = await listAll(folderRef);
-      const downloadURLs = await Promise.all(
-        files.items.map(async (fileRef) => {
-          const url = await getDownloadURL(fileRef);
-          const id = fileRef.name.split('.')[0]; // Extract the filename without extension as ID
-
-          return { url, id };
-        })
-      );
-      setPhotos(downloadURLs);
-    } catch (error) {
-      console.error('Fetch data error:', error);
-    }
-  };
+  }, [folderName]);
 
   const handleUpload = async () => {
     if (image) {
@@ -70,7 +70,6 @@ function PhotoUploader({ folderName }) {
 
       // Update photos state
       setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo.id !== id));
- 
     } catch (error) {
       console.error('Remove error:', error);
     }
