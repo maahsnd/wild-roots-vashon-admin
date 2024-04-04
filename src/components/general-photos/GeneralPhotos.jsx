@@ -16,10 +16,16 @@ function GeneralPhotos() {
           About
         </button>
         <button
-          onClick={() => setPageName('farmPhotos')}
+          onClick={() => setPageName('farmStandPhotos')}
           className={styles.pageBtn}
         >
-          Farm
+          Farm Stand
+        </button>
+        <button
+          onClick={() => setPageName('farmersMarketPhotos')}
+          className={styles.pageBtn}
+        >
+          Farmers Market
         </button>
       </div>
       {pageName && <p>Edit {pageName}</p>}
