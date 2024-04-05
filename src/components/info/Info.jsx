@@ -37,6 +37,11 @@ function Info() {
     setSelectedPage(updatedContent);
   };
 
+  const removeItem = (index) => {
+    const updatedContent = selectedPage.filter((_, i) => i !== index);
+    setSelectedPage(updatedContent);
+  };
+
   const writeToDB = () => {
     const update = { ...content };
     update[pageName] = selectedPage;
@@ -98,17 +103,27 @@ function Info() {
           {selectedPage.map((section, index) => (
             <div className={styles.contentSection} key={index}>
               <h3 className={styles.contentSectionTitle}>{section.title}</h3>
-              <textarea
-                name={index}
-                className={`${
-                  section.title === 'Item' ? styles.foodItem : ''
-                } `}
-                id={index}
-                cols="30"
-                rows="10"
-                value={section.description}
-                onChange={(e) => handleChange(e, index)}
-              ></textarea>
+              <div className={styles.descriptionWrap}>
+                <textarea
+                  name={index}
+                  className={`${
+                    section.title === 'Item' ? styles.foodItem : ''
+                  } `}
+                  id={index}
+                  cols="30"
+                  rows="10"
+                  value={section.description}
+                  onChange={(e) => handleChange(e, index)}
+                ></textarea>
+                {section.title === 'Item' && (
+                  <button
+                    className={styles.removeItem}
+                    onClick={() => removeItem(index)}
+                  >
+                    Remove Item
+                  </button>
+                )}
+              </div>
             </div>
           ))}
           {pageName == 'farmersMarket' ||

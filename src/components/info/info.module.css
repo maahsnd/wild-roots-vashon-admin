@@ -1,9 +1,31 @@
+.descriptionWrap {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentSectionTitle {
+  margin: 30px 0 10px;
+}
+
 .submitButton,
 .addItem {
   margin: 20px;
   padding: 10px;
   background-color: rgba(0, 128, 0, 0.451);
   border: 1px solid black;
+}
+
+.removeItem {
+  margin: 0 20px;
+  padding: 10px;
+  background-color: rgba(255, 0, 0, 0.389);
+  border: 1px solid black;
+}
+
+.removeItem:hover {
+  background-color: red;
 }
 
 .msg {
