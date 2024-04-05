@@ -1,6 +1,7 @@
-.submitButton {
-  margin: 10px;
-  padding: 5px;
+.submitButton,
+.addItem {
+  margin: 20px;
+  padding: 10px;
   background-color: rgba(0, 128, 0, 0.451);
   border: 1px solid black;
 }
@@ -12,13 +13,19 @@
   font-size: large;
 }
 
-.submitButton:hover {
+.submitButton:hover,
+.addItem:hover {
   background-color: rgba(0, 128, 0, 0.691);
 }
 
 textarea {
   width: 100%;
   height: 150px;
+}
+
+.foodItem {
+  height: 30px;
+  width: 50%;
 }
 
 .pageSelectButtons {
@@ -35,7 +42,7 @@ textarea {
   border: 2px solid skyblue;
   color: black;
   height: min-content;
-  margin: 10px
+  margin: 10px;
 }
 
 .pageBtn:hover {

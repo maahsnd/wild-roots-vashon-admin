@@ -77,7 +77,6 @@ function PhotoUploader({ folderName }) {
 
   const handleChange = (e) => {
     const selectedImage = e.target.files[0];
-    console.log('Selected image:', selectedImage);
     if (selectedImage) {
       setImage(selectedImage);
       const imageUrl = URL.createObjectURL(selectedImage);

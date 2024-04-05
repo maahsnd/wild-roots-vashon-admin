@@ -31,6 +31,12 @@ function Info() {
     setSelectedPage(updatedContent);
   };
 
+  const addItem = () => {
+    const updatedContent = [...selectedPage];
+    updatedContent.push({ description: '', title: 'Item' });
+    setSelectedPage(updatedContent);
+  };
+
   const writeToDB = () => {
     const update = { ...content };
     update[pageName] = selectedPage;
@@ -93,8 +99,11 @@ function Info() {
             <div className={styles.contentSection} key={index}>
               <h3 className={styles.contentSectionTitle}>{section.title}</h3>
               <textarea
-                name={section.title}
-                id={section.title}
+                name={index}
+                className={`${
+                  section.title === 'Item' ? styles.foodItem : ''
+                } `}
+                id={index}
                 cols="30"
                 rows="10"
                 value={section.description}
@@ -102,6 +111,12 @@ function Info() {
               ></textarea>
             </div>
           ))}
+          {pageName == 'farmersMarket' ||
+            (pageName == 'farmStand' && (
+              <button className={styles.addItem} onClick={addItem}>
+                Add Item
+              </button>
+            ))}
           <button className={styles.submitButton} onClick={writeToDB}>
             Submit changes
           </button>
