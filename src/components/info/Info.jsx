@@ -48,7 +48,7 @@ function Info() {
     set(ref(db, 'general-info'), {
       about: update.about,
       farmStand: update.farmStand,
-      /* farmersMarket: update.farmersMarket, */
+      farmersMarket: update.farmersMarket,
       home: update.home,
       menuBlurb: update.menuBlurb
     });
