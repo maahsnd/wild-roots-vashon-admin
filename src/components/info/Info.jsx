@@ -126,12 +126,11 @@ function Info() {
               </div>
             </div>
           ))}
-          {pageName == 'farmersMarket' ||
-            (pageName == 'farmStand' && (
-              <button className={styles.addItem} onClick={addItem}>
-                Add Item
-              </button>
-            ))}
+          {(pageName == 'farmersMarket' || pageName == 'farmStand') && (
+            <button className={styles.addItem} onClick={addItem}>
+              Add Item
+            </button>
+          )}
           <button className={styles.submitButton} onClick={writeToDB}>
             Submit changes
           </button>
