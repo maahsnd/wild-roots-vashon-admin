@@ -101,7 +101,7 @@ function Info() {
       {selectedPage && (
         <>
           {selectedPage.map((section, index) => (
-            <div className={styles.contentSection} key={index}>
+            <div className={styles.contentSection} key={`${pageName}${index}`}>
               <h3 className={styles.contentSectionTitle}>{section.title}</h3>
               <div className={styles.descriptionWrap}>
                 <textarea
