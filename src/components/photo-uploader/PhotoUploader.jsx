@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './photo_uploader.module.css';
-import { storage, db } from '../../firebase-config';
+import { storage } from '../../firebase-config';
 import {
   ref as storageRef,
   uploadBytesResumable,
   getDownloadURL,
   listAll,
-  deleteObject // Import deleteObject from Firebase storage
+  deleteObject
 } from 'firebase/storage';
-import { ref, set, onValue, off, remove } from 'firebase/database';
 
 function PhotoUploader({ folderName }) {
   const [photos, setPhotos] = useState([]);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const fileInputRef = useRef(null); // Add a ref for the file input
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,22 +41,36 @@ function PhotoUploader({ folderName }) {
     if (image) {
       const imageName = `${Date.now()}_${Math.floor(Math.random() * 1000000)}`;
       const uploadRef = storageRef(storage, `${folderName}/${imageName}`);
-      const uploadTask = uploadBytesResumable(uploadRef, image);
 
-      try {
-        const snapshot = await uploadTask;
-        const downloadURL = await getDownloadURL(snapshot.ref);
+      // Define metadata for Cache-Control
+      const metadata = {
+        cacheControl: 'public, max-age=31536000' // Cache images for 1 year
+      };
 
-        // Generate a unique ID for the image
-        const imageId = imageName.split('.')[0]; // Extract the filename without extension as ID
-        const newPhotos = [...photos, { url: downloadURL, id: imageId }];
-        setPhotos(newPhotos);
+      const uploadTask = uploadBytesResumable(uploadRef, image, metadata);
 
-        setImage(null);
-        setImageUrl(null);
-      } catch (error) {
-        console.error('Upload error:', error);
-      }
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          console.log(snapshot.state);
+        },
+        (error) => {
+          console.error('Upload error:', error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            const imageId = imageName.split('.')[0];
+            const newPhotos = [...photos, { url: downloadURL, id: imageId }];
+            setPhotos(newPhotos);
+
+            setImage(null);
+            setImageUrl(null);
+            if (fileInputRef.current) {
+              fileInputRef.current.value = ''; // Reset the file input
+            }
+          });
+        }
+      );
     } else {
       console.error('No image selected');
     }
@@ -64,11 +78,9 @@ function PhotoUploader({ folderName }) {
 
   const handleRemove = async (id) => {
     try {
-      // Remove photo from storage
       const photoRef = storageRef(storage, `${folderName}/${id}`);
       await deleteObject(photoRef);
 
-      // Update photos state
       setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo.id !== id));
     } catch (error) {
       console.error('Remove error:', error);
@@ -90,7 +102,7 @@ function PhotoUploader({ folderName }) {
     <div className={styles.container}>
       <h3>Photo Uploader</h3>
       <div className={styles.uploader}>
-        <input type="file" onChange={handleChange} />
+        <input type="file" onChange={handleChange} ref={fileInputRef} />
         <button onClick={handleUpload}>Upload</button>
         {imageUrl && (
           <div className={styles.imageContainer}>
