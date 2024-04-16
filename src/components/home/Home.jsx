@@ -13,13 +13,16 @@ export default function Home() {
       <Link className={styles.linkBtn} to="/menu-photos">
         Add Menu Photos
       </Link>
-      <p>To edit all other areas of the site, click edit general info</p>
+      <p>
+        To edit the farm stand and farmer's market pages, click edit general
+        info
+      </p>
       <Link className={styles.linkBtn} to="/info">
-        Edit General Info
+        Edit Stand/ Market Info
       </Link>
-      <p>To add photos for all other areas of the site, click add general photos</p>
+      <p>To add the farm stand and farmer's market, click add general photos</p>
       <Link className={styles.linkBtn} to="/general-photos">
-        Add General Photos
+        Add Stand/ Market Photos
       </Link>
     </div>
   );

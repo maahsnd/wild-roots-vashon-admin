@@ -10,12 +10,6 @@ function GeneralPhotos() {
       <div className={styles.pageSelectButtons}>
         <h3>Select page to edit photos: </h3>
         <button
-          onClick={() => setPageName('aboutPhotos')}
-          className={styles.pageBtn}
-        >
-          About
-        </button>
-        <button
           onClick={() => setPageName('farmStandPhotos')}
           className={styles.pageBtn}
         >
